@@ -23,6 +23,12 @@ public class Frame extends JFrame {
         FlowLayout myFlowLayout = new FlowLayout(FlowLayout.CENTER);
         monPanel.setLayout(myFlowLayout);
 
+
+        //GridLayout GL = new GridLayout(10,2);
+        //GL.setHgap(10);
+        //GL.setVgap(10);
+        //monPanel.setLayout(GL);
+
         GridBagLayout gLayout = new GridBagLayout();
         monPanel.setLayout(gLayout);
 
@@ -61,6 +67,7 @@ public class Frame extends JFrame {
         pitch.setForeground(Color.WHITE);
 
 
+
         JButton buttonValidate = new JButton();
         JButton buttonCancel = new JButton();
         try {
@@ -80,55 +87,85 @@ public class Frame extends JFrame {
         buttonCancel.setBorder(roundedBorder);
         buttonCancel.setOpaque(false);
 
+        JTable infoTable = new JTable();
+        infoTable.setPreferredSize(new Dimension(800, 400));
+        infoTable.setOpaque(true);
+        infoTable.setBackground(Color.CYAN);
 
-        grid.gridx = 0;
+        infoTable.setBorder(roundedBorder);
+        infoTable.setOpaque(false);
+        infoTable.setForeground(Color.WHITE);
+
+        JTable blankColumn = new JTable();
+        blankColumn.setPreferredSize(new Dimension(80, 400));
+        blankColumn.setOpaque(false);
+
+
+
+
+
+        grid.gridx = 2;
         grid.gridy = 0;
         grid.gridheight = 1;
         grid.gridwidth = 2;
         monPanel.add(title, grid);
 
-        grid.gridx = 0;
+        grid.gridx = 2;
         grid.gridy = 1;
         grid.gridheight = 1;
         grid.gridwidth = 2;
         monPanel.add(author, grid);
 
-        grid.gridx = 0;
+        grid.gridx = 2;
         grid.gridy = 2;
         grid.gridheight = 1;
         grid.gridwidth = 2;
         monPanel.add(release, grid);
 
-        grid.gridx = 0;
+        grid.gridx = 2;
         grid.gridy = 3;
         grid.gridheight = 1;
         grid.gridwidth = 2;
         monPanel.add(column, grid);
 
-        grid.gridx = 0;
+        grid.gridx = 2;
         grid.gridy = 4;
         grid.gridheight = 1;
         grid.gridwidth = 2;
         monPanel.add(row, grid);
 
-        grid.gridx = 0;
+        grid.gridx = 2;
         grid.gridy = 5;
         grid.gridheight = 1;
         grid.gridwidth = 2;
         monPanel.add(pitch, grid);
 
-        grid.gridx = 0;
+        grid.gridx = 2;
         grid.gridy = 6;
         grid.gridheight = 1;
         grid.gridwidth = 1;
         monPanel.add(buttonValidate, grid);
 
 
-        grid.gridx = 1;
+        grid.gridx = 3;
         grid.gridy = 6;
         grid.gridheight = 1;
         grid.gridwidth = 1;
         monPanel.add(buttonCancel, grid);
+
+        grid.gridx = 0;
+        grid.gridy = 0;
+        grid.gridheight = 6;
+        grid.gridwidth = 1;
+        monPanel.add(infoTable, grid);
+
+        grid.gridx = 1;
+        grid.gridy = 0;
+        grid.gridheight = 6;
+        grid.gridwidth = 1;
+        monPanel.add(blankColumn, grid);
+
+
 
 
     }
