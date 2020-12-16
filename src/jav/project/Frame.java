@@ -23,11 +23,29 @@ public class Frame extends JFrame {
         FlowLayout myFlowLayout = new FlowLayout(FlowLayout.CENTER);
         monPanel.setLayout(myFlowLayout);
 
+        JMenuBar menuBar = new JMenuBar();
+        this.setJMenuBar(menuBar);
+        JMenu fileFichier =new JMenu();
+        fileFichier.setText("Fichiers");
+        JMenu fileEdit = new JMenu();
+        fileEdit.setText("Editer");
+        JMenu filePropos = new JMenu();
+        filePropos.setText("A propos");
+        menuBar.add(fileFichier);
+        menuBar.add(fileEdit);
+        menuBar.add(filePropos);
 
-        //GridLayout GL = new GridLayout(10,2);
-        //GL.setHgap(10);
-        //GL.setVgap(10);
-        //monPanel.setLayout(GL);
+        JMenuItem ouvrir = new JMenuItem();
+        JMenuItem nouveau = new JMenuItem();
+        JMenuItem quitter = new JMenuItem();
+        ouvrir.setText("Ouvrir ...");
+        nouveau.setText("Nouveau");
+        quitter.setText("Quitter");
+        fileFichier.add(ouvrir);
+        fileFichier.add(nouveau);
+        fileFichier.add(quitter);
+
+
 
         GridBagLayout gLayout = new GridBagLayout();
         monPanel.setLayout(gLayout);
@@ -35,17 +53,24 @@ public class Frame extends JFrame {
         GridBagConstraints grid = new GridBagConstraints();
 
         JTextField title = new JTextField();
+        title.setText("Titre");
         title.setPreferredSize(new Dimension(300, 50));
         JTextField author = new JTextField();
+        author.setText("Auteur");
         author.setPreferredSize(new Dimension(300, 50));
         JTextField release = new JTextField();
+        release.setText("Date de sortie");
         release.setPreferredSize(new Dimension(300, 50));
         JTextField column = new JTextField();
+        column.setText("Colonne");
         column.setPreferredSize(new Dimension(300, 50));
         JTextField row = new JTextField();
+        row.setText("Rangée");
         row.setPreferredSize(new Dimension(300, 50));
         JTextArea pitch = new JTextArea();
+        pitch.setText("Resumer");
         pitch.setPreferredSize(new Dimension(300, 150));
+
 
         title.setBorder(roundedBorder);
         title.setOpaque(false);
