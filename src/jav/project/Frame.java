@@ -139,6 +139,7 @@ public class Frame extends JFrame {
         grid.gridy = 1;
         grid.gridheight = 1;
         grid.gridwidth = 2;
+        grid.insets = new Insets(10, 0, 0, 0);
         monPanel.add(author, grid);
 
         // Text field Release date
