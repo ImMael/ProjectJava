@@ -34,6 +34,7 @@ public class Frame extends JFrame{
         FlowLayout myFlowLayout = new FlowLayout(FlowLayout.CENTER);
         monPanel.setLayout(myFlowLayout);
 
+        // Menu
         JMenuBar menuBar = new JMenuBar();
         this.setJMenuBar(menuBar);
         JMenu fileFichier = new JMenu();
@@ -47,6 +48,7 @@ public class Frame extends JFrame{
         menuBar.add(filePropos);
 
 
+        // Sous menu
         JMenuItem ouvrir = new JMenuItem();
         JMenuItem nouveau = new JMenuItem();
         JMenuItem quitter = new JMenuItem();
@@ -122,8 +124,8 @@ public class Frame extends JFrame{
         } catch (IOException ignored) {
         }
 
-        buttonValidate.setPreferredSize(new Dimension(150, 30));    // Set the size of the button
-        buttonCancel.setPreferredSize(new Dimension(150, 30));      // Set the size of the button
+        buttonValidate.setPreferredSize(new Dimension(100, 30));    // Set the size of the button
+        buttonCancel.setPreferredSize(new Dimension(100, 30));      // Set the size of the button
         buttonValidate.setBorder(roundedBorder);    // Round the border
         buttonValidate.setBackground(Color.darkGray);   // Set the opacity
         buttonCancel.setBorder(roundedBorder);
@@ -191,6 +193,7 @@ public class Frame extends JFrame{
         grid.gridy = 6;
         grid.gridheight = 1;
         grid.gridwidth = 1;
+        grid.insets = new Insets(10, 0, 0, 100);
         monPanel.add(buttonValidate, grid);
 
         // Button cancel the form
@@ -198,8 +201,10 @@ public class Frame extends JFrame{
         grid.gridy = 6;
         grid.gridheight = 1;
         grid.gridwidth = 1;
+        grid.insets = new Insets(10, 0, 0, 0);
         monPanel.add(buttonCancel, grid);
 
+        grid.insets = new Insets(0, 0, 0, 0);
         // Info Table
         grid.gridx = 0;
         grid.gridy = 0;
@@ -215,12 +220,14 @@ public class Frame extends JFrame{
         monPanel.add(blankColumn, grid);
 
 
+        // Mise en place de la recherche de fichier .txt
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Only txt files","txt");
         fileChooser.setFileFilter(filter);
 
 
+        // Efface le label pour pouvoir ecrire
         title.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -254,7 +261,7 @@ public class Frame extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 if(author.getText().equals("Auteur")){
                     author.setText(" ");
-                } else if(title.getText().equals(" ")){
+                } else if(title.getText().equals("")){
                     author.setText("Auteur");
                 }
             }
@@ -281,9 +288,9 @@ public class Frame extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(release.getText().equals("Date de sortie")){
-                    release.setText("");
+                    release.setText(" ");
                 } else if(title.getText().equals("")){
-                    release.setText("Date de Sortie");
+                    release.setText("Date de sortie");
                 }
             }
 
@@ -426,6 +433,9 @@ public class Frame extends JFrame{
             public void mouseExited(MouseEvent e) {
             }
         });
+
+
+        // Sous menu pour ouvrir un fichier .txt
         ouvrir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -433,6 +443,7 @@ public class Frame extends JFrame{
                 if(Val == JFileChooser.APPROVE_OPTION){
                     // System.out.println("You choose to open this: "+fileChooser.getSelectedFile());
                     File file = new File(String.valueOf(fileChooser.getSelectedFile()));
+                    System.out.println(file);
                     Desktop desktop = Desktop.getDesktop();
                     if(file.exists()){
                         try {
