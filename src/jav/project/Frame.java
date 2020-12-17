@@ -407,6 +407,20 @@ public class Frame extends JFrame{
                 pitch.setText("Résumé");
             }
         });
+        buttonValidate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String getTitle = title.getText();
+                String getAuthor = author.getText();
+                String getRelease = release.getText();
+                String getColumn = column.getText();
+                String getRow = row.getText();
+                String getPitch = pitch.getText();
+                System.out.println(getTitle + getAuthor + getRelease + getColumn + getRow + getPitch);
+            }
+        });
+
+        // Pop up dev
         filePropos.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -443,7 +457,6 @@ public class Frame extends JFrame{
                 if(Val == JFileChooser.APPROVE_OPTION){
                     // System.out.println("You choose to open this: "+fileChooser.getSelectedFile());
                     File file = new File(String.valueOf(fileChooser.getSelectedFile()));
-                    System.out.println(file);
                     Desktop desktop = Desktop.getDesktop();
                     if(file.exists()){
                         try {
@@ -462,5 +475,7 @@ public class Frame extends JFrame{
                 System.exit(0);
             }
         });
+
+
     }
 }
