@@ -23,6 +23,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 public class Frame extends JFrame {
+    String[] dictionnaire = new String[6];
+
     public Frame() {
         super("Bibliotheque");
         setSize(1280, 720);     // Set the default size of the window
@@ -397,6 +399,8 @@ public class Frame extends JFrame {
             public void mouseExited(MouseEvent e) {
             }
         });
+
+        // Button to reset fields
         buttonCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -409,18 +413,26 @@ public class Frame extends JFrame {
             }
         });
 
-        public String[] getForm(){
 
-            String[] dictionnaire = new String[6];
+        buttonValidate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-            dictionnaire[0] = title.getText();
-            dictionnaire[1] = author.getText();
-            dictionnaire[2] = release.getText();
-            dictionnaire[3] = column.getText();
-            dictionnaire[4] = row.getText();
-            dictionnaire[5] = pitch.getText();
-            System.out.println(dictionnaire[1]);
-        }
+                int x = 0;
+
+                dictionnaire[0] = title.getText();
+                dictionnaire[1] = author.getText();
+                dictionnaire[2] = release.getText();
+                dictionnaire[3] = column.getText();
+                dictionnaire[4] = row.getText();
+                dictionnaire[5] = pitch.getText();
+
+                getForm();
+                getBibliotheque(x);
+                x++;
+            }
+        });
+
 
         // Pop up dev
         filePropos.addMouseListener(new MouseListener() {
@@ -480,4 +492,17 @@ public class Frame extends JFrame {
 
 
     }
+
+    String[][] test = new String[10][10];
+
+    public void getBibliotheque(int x) {
+        test[x][0] = dictionnaire[0];
+        System.out.println(test[0][0]);
+        System.out.println(test[1][0]);
+    }
+
+    public String[] getForm() {
+        return dictionnaire;
+    }
+
 }
