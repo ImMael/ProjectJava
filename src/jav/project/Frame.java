@@ -22,6 +22,7 @@ import jav.project.Book;
 
 public class Frame extends JFrame {
     String[] dictionnaire = new String[6];
+
     public Frame() {
         super("Bibliotheque");
         setSize(1280, 720);     // Set the default size of the window
@@ -152,9 +153,9 @@ public class Frame extends JFrame {
 
         // Setup of the Library
         Object[][] donnees = {
-                {"Titre", "Auteur", "Date de Sortie", "Colonne","Rangée", "Résumé"},
-                {"Harry Potter", "J.K Rowling", "2009", "5","2", "...."},
-                {"Eragon", "C Poolini", "2000", "2","2", "...."},
+                {"Titre", "Auteur", "Date de Sortie", "Colonne", "Rangée", "Résumé"},
+                {"Harry Potter", "J.K Rowling", "2009", "5", "2", "...."},
+                {"Eragon", "C Poolini", "2000", "2", "2", "...."},
                 {"Le Vieil Homme et la Mer", "E Hemingway", "1952", "4", "3", "Un bouquin avec un gros poisson"},
                 {"Les Raisins de la Colère", "J Steinbeck", "1939", "2", "5", "La grande dépression c'était la Hess"},
                 {"Moby Dick", "H. Melville", "1851", "1", "6", "Un autre bouquin avec un gros poissson"},
@@ -187,8 +188,7 @@ public class Frame extends JFrame {
         String[] entetes = {"Titre", "Auteur", "Date de Sortie", "Colonne", "Rangee", "Pitch"};
 
         // Table where the info of books are display and save
-        JTable infoTable = new JTable(donnees, entetes)
-        {
+        JTable infoTable = new JTable(donnees, entetes) {
             @Override
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
                 Component comp = super.prepareRenderer(renderer, row, column);
@@ -197,8 +197,10 @@ public class Frame extends JFrame {
             }
         };
 
+
+
         //create JTable
-        infoTable.setPreferredSize(new Dimension(800, 400));    // Size of JTable
+        infoTable.setPreferredSize(new Dimension(800, 500));    // Size of JTable
         infoTable.setBorder(roundedBorder);    // To have rounded border (style)
         infoTable.setOpaque(false);     // To set opacity of JTable
         infoTable.setForeground(Color.WHITE);       // Color of text
@@ -259,7 +261,7 @@ public class Frame extends JFrame {
         grid.gridy = 6;
         grid.gridheight = 1;
         grid.gridwidth = 1;
-        grid.insets = new Insets(10, 0, 0, 100);
+        grid.insets = new Insets(20, 0, 0, 100);
         monPanel.add(buttonValidate, grid);
 
         // Button cancel the form
@@ -267,14 +269,14 @@ public class Frame extends JFrame {
         grid.gridy = 6;
         grid.gridheight = 1;
         grid.gridwidth = 1;
-        grid.insets = new Insets(10, 0, 0, 0);
+        grid.insets = new Insets(20, 0, 0, 0);
         monPanel.add(buttonCancel, grid);
 
         grid.insets = new Insets(0, 0, 0, 0);
         // Info Table
         grid.gridx = 0;
         grid.gridy = 0;
-        grid.gridheight = 6;
+        grid.gridheight = 8;
         grid.gridwidth = 1;
         monPanel.add(infoTable, grid);
 
@@ -327,14 +329,14 @@ public class Frame extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                if(title.getText().equals("Titre")){
+                if (title.getText().equals("Titre")) {
                     title.setText("");
                 }
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if(title.getText().equals("")){
+                if (title.getText().equals("")) {
                     title.setText("Titre");
                 }
             }
@@ -355,14 +357,14 @@ public class Frame extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                if(author.getText().equals("Auteur")){
+                if (author.getText().equals("Auteur")) {
                     author.setText("");
                 }
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if(author.getText().equals("")){
+                if (author.getText().equals("")) {
                     author.setText("Auteur");
                 }
             }
@@ -384,14 +386,14 @@ public class Frame extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                if(release.getText().equals("Date de sortie")){
+                if (release.getText().equals("Date de sortie")) {
                     release.setText("");
                 }
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if(release.getText().equals("")){
+                if (release.getText().equals("")) {
                     release.setText("Date de sortie");
                 }
             }
@@ -413,14 +415,14 @@ public class Frame extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                if(column.getText().equals("Colonne")){
+                if (column.getText().equals("Colonne")) {
                     column.setText("");
                 }
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if(column.getText().equals("")){
+                if (column.getText().equals("")) {
                     column.setText("Colonne");
                 }
             }
@@ -442,14 +444,14 @@ public class Frame extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                if(row.getText().equals("Rangée")){
+                if (row.getText().equals("Rangée")) {
                     row.setText("");
                 }
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if(row.getText().equals("")){
+                if (row.getText().equals("")) {
                     row.setText("Rangée");
                 }
             }
@@ -471,14 +473,14 @@ public class Frame extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                if(pitch.getText().equals("Résumé")){
+                if (pitch.getText().equals("Résumé")) {
                     pitch.setText("");
                 }
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if(pitch.getText().equals("")){
+                if (pitch.getText().equals("")) {
                     pitch.setText("Résumé");
                 }
             }

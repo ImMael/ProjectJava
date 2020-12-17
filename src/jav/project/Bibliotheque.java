@@ -2,12 +2,9 @@ package jav.project;
 
 public class Bibliotheque {
 
-    Object[] bibliotheque;
+    private Book[] biblio= {};
 
-
-    public Bibliotheque(Object[] bibliotheque) {
-        this.bibliotheque = bibliotheque;
+    public Bibliotheque(Book[] biblio) {
+        this.biblio = biblio;
     }
-
-
 }
