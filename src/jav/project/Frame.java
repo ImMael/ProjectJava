@@ -14,6 +14,7 @@ import java.awt.Desktop;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableCellRenderer;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
@@ -135,17 +136,33 @@ public class Frame extends JFrame {
         Object[][] donnees = {
                 {"Titre", "Auteur", "Date de Sortie", "Colonne","Rangée", "Résumé"},
                 {"Harry Potter", "J.K Rowling", "2009", "5","2", "...."},
-                {"Eragon", "C Poolini", "2000", "2","2", "...."}
+                {"Eragon", "C Poolini", "2000", "2","2", "...."},
+                {"Le Vieil Homme et la Mer", "E Hemingway", "1952", "4", "3", "Un bouquin avec un gros poisson"},
+                {"Les Raisins de la Colère", "J Steinbeck", "1939", "2", "5", "La grande dépression c'était la Hess"},
+                {"Moby Dick", "H. Melville", "1851", "1", "6", "Un autre bouquin avec un gros poissson"}
         };
 
         String[] entetes = {"Titre", "Auteur", "Date de Sortie", "Colonne", "Rangee", "Pitch"};
 
         // Table where the info of books are display and save
-        JTable infoTable = new JTable(donnees, entetes);    //create JTable
+        JTable infoTable = new JTable(donnees, entetes)
+        {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component comp = super.prepareRenderer(renderer, row, column);
+                comp.setBackground(row % 2 == 0 ? Color.DARK_GRAY : Color.GRAY);
+                return comp;
+            }
+        };
+
+
+
+        //create JTable
         infoTable.setPreferredSize(new Dimension(800, 400));    // Size of JTable
         infoTable.setBorder(roundedBorder);    // To have rounded border (style)
-        infoTable.setBackground(Color.darkGray);     // To set opacity of JTable
-        infoTable.setForeground(Color.WHITE);       // Color of text
+
+
+            infoTable.setForeground(Color.WHITE);       // Color of text
 
         // Create blank column to create space
         JTable blankColumn = new JTable();
@@ -234,6 +251,7 @@ public class Frame extends JFrame {
         fileChooser.setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Only txt files", "txt");
         fileChooser.setFileFilter(filter);
+
 
 
         // Efface le label pour pouvoir ecrire
