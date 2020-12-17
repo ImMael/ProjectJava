@@ -15,8 +15,10 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableCellRenderer;
-import java.time.format.DateTimeFormatter;
+import java.net.URI;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import jav.project.Book;
 
 public class Frame extends JFrame {
     String[] dictionnaire = new String[6];
@@ -24,9 +26,8 @@ public class Frame extends JFrame {
         super("Bibliotheque");
         setSize(1280, 720);     // Set the default size of the window
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy");
         LocalDateTime now = LocalDateTime.now();
-        System.out.println(dtf.format(now));
+        // System.out.println(now.getYear());
 
         JPanel monPanel = new JPanel();
         this.setContentPane(monPanel);
@@ -40,7 +41,7 @@ public class Frame extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         this.setJMenuBar(menuBar);
         JMenu fileFichier = new JMenu();
-        fileFichier.setText("Fichiers");
+        fileFichier.setText("Fichier");
         JMenu fileEdit = new JMenu();
         fileEdit.setText("Editer");
         JMenu filePropos = new JMenu();
@@ -55,16 +56,19 @@ public class Frame extends JFrame {
         JMenuItem nouveau = new JMenuItem();
         JMenuItem quitter = new JMenuItem();
         JMenuItem raz = new JMenuItem();
+        JMenuItem stats = new JMenuItem();
         ouvrir.setText("Ouvrir ...");
         nouveau.setText("Nouveau");
         quitter.setText("Quitter");
         raz.setText("RAZ");
+        stats.setText("Stats");
         fileFichier.add(ouvrir);
         fileFichier.add(nouveau);
+        fileFichier.add(stats);
         fileFichier.add(quitter);
         fileEdit.add(raz);
 
-
+        //Setting up the Layout
         GridBagLayout gLayout = new GridBagLayout();
         monPanel.setLayout(gLayout);
 
@@ -93,6 +97,7 @@ public class Frame extends JFrame {
 
         // Style of border
         Border roundedBorder = new LineBorder(Color.WHITE, 2, true);
+        Border invBorder = new LineBorder(Color.darkGray, 0, false);
 
         // Set the Style of all Text field
         title.setBorder(roundedBorder);     // Round the border
@@ -118,29 +123,66 @@ public class Frame extends JFrame {
         // Creation of both button Validate and Cancel
         JButton buttonValidate = new JButton();     // Create a button
         JButton buttonCancel = new JButton();       // Create a button
+        JButton addButton = new JButton();          // Create a button
+        JButton deleteButton = new JButton();       // Create a button
         try {
             Image img = ImageIO.read(getClass().getResource("assets/check_1.png"));     // Get a image and put it in img
             buttonValidate.setIcon(new ImageIcon(img));     // Set a image on button
             Image imgCancel = ImageIO.read(getClass().getResource("assets/close_1.png"));
             buttonCancel.setIcon(new ImageIcon(imgCancel));
+            Image imgDelete = ImageIO.read(getClass().getResource("assets/minus.png"));     // Get a image and put it in img
+            deleteButton.setIcon(new ImageIcon(imgDelete));     // Set a image on button
+            Image imgAdd = ImageIO.read(getClass().getResource("assets/add.png"));     // Get a image and put it in img
+            addButton.setIcon(new ImageIcon(imgAdd));     // Set a image on button
         } catch (IOException ignored) {
         }
-
+        // Borders add, Size Add
         buttonValidate.setPreferredSize(new Dimension(100, 30));    // Set the size of the button
         buttonCancel.setPreferredSize(new Dimension(100, 30));      // Set the size of the button
         buttonValidate.setBorder(roundedBorder);    // Round the border
         buttonValidate.setBackground(Color.darkGray);   // Set the opacity
         buttonCancel.setBorder(roundedBorder);
         buttonCancel.setBackground(Color.darkGray);
+        addButton.setPreferredSize(new Dimension(30, 30));    // Set the size of the button
+        deleteButton.setPreferredSize(new Dimension(30, 30));      // Set the size of the button
+        addButton.setBorder(invBorder);    // Round the border
+        addButton.setBackground(Color.darkGray);   // Set the opacity
+        deleteButton.setBorder(invBorder);
+        deleteButton.setBackground(Color.darkGray);
 
+        // Setup of the Library
         Object[][] donnees = {
                 {"Titre", "Auteur", "Date de Sortie", "Colonne","Rangée", "Résumé"},
                 {"Harry Potter", "J.K Rowling", "2009", "5","2", "...."},
                 {"Eragon", "C Poolini", "2000", "2","2", "...."},
                 {"Le Vieil Homme et la Mer", "E Hemingway", "1952", "4", "3", "Un bouquin avec un gros poisson"},
                 {"Les Raisins de la Colère", "J Steinbeck", "1939", "2", "5", "La grande dépression c'était la Hess"},
-                {"Moby Dick", "H. Melville", "1851", "1", "6", "Un autre bouquin avec un gros poissson"}
+                {"Moby Dick", "H. Melville", "1851", "1", "6", "Un autre bouquin avec un gros poissson"},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+                {"", "", "", "", "", ""},
+
         };
+        // System.out.println(donnees[x][0]);
+
+        Book hp = new Book("Harry Potter", "J.K Rowling", 2009,5,2,".....");
+        Book eragon = new Book("Eragon", "C Poolini",2000,2,2,".....");
 
         String[] entetes = {"Titre", "Auteur", "Date de Sortie", "Colonne", "Rangee", "Pitch"};
 
@@ -155,14 +197,12 @@ public class Frame extends JFrame {
             }
         };
 
-
-
         //create JTable
         infoTable.setPreferredSize(new Dimension(800, 400));    // Size of JTable
         infoTable.setBorder(roundedBorder);    // To have rounded border (style)
-
-
-            infoTable.setForeground(Color.WHITE);       // Color of text
+        infoTable.setOpaque(false);     // To set opacity of JTable
+        infoTable.setForeground(Color.WHITE);       // Color of text
+        infoTable.setSelectionForeground(Color.white); // Color while selected
 
         // Create blank column to create space
         JTable blankColumn = new JTable();
@@ -245,6 +285,22 @@ public class Frame extends JFrame {
         grid.gridwidth = 1;
         monPanel.add(blankColumn, grid);
 
+        // Button add of the Table
+        grid.gridx = 0;
+        grid.gridy = 7;
+        grid.gridheight = 1;
+        grid.gridwidth = 1;
+        grid.insets = new Insets(-70, -30, 0, 0);
+        monPanel.add(addButton, grid);
+
+        // Button delete of the table
+        grid.gridx = 0;
+        grid.gridy = 7;
+        grid.gridheight = 1;
+        grid.gridwidth = 1;
+        grid.insets = new Insets(-70, 30, 0, 0);
+        monPanel.add(deleteButton, grid);
+
 
         // Mise en place de la recherche de fichier .txt
         JFileChooser fileChooser = new JFileChooser();
@@ -253,8 +309,7 @@ public class Frame extends JFrame {
         fileChooser.setFileFilter(filter);
 
 
-
-        // Efface le label pour pouvoir ecrire
+        // Effacer le label pour pouvoir écrire
         title.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -442,12 +497,30 @@ public class Frame extends JFrame {
             }
         });
 
-
+        // Button to add Element to the table
         buttonValidate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(Integer.parseInt(release.getText()) == Integer.parseInt(String.valueOf(now))){
-                    System.out.println("Date trop récente");
+                try{
+                    if((Integer.parseInt(release.getText()) > now.getYear()) || (Integer.parseInt(row.getText()) > 7) || (Integer.parseInt(column.getText()) > 5)){
+                        JOptionPane.showMessageDialog(monPanel,"Année incorrecte, ou mauvaise position dans la bibliothèque");
+                    } else {
+                        for(int x = 1; x < donnees.length; x++){
+                            int selRow = infoTable.getSelectedRow();
+                            donnees[selRow][0] = title.getText();
+                            donnees[selRow][1] = author.getText();
+                            donnees[selRow][2] = release.getText();
+                            donnees[selRow][3] = column.getText();
+                            donnees[selRow][4] = row.getText();
+                            donnees[selRow][5] = pitch.getText();
+                            break;
+                        }
+                    }
+                } catch (NumberFormatException er){
+                    String errorMessage = er.toString();
+                    String[] result = errorMessage.split(":");
+                    // System.out.println(errorMessage); Print dans la console de l'erreur (pour test)
+                    JOptionPane.showMessageDialog(monPanel,"Erreur :" + result[1] + ":" + result[2]);
                 }
             }
         });
@@ -456,8 +529,17 @@ public class Frame extends JFrame {
         filePropos.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String Message = "Dev: Walid, Allan, Baptiste et Maël\n Version: 1.0";
-                JOptionPane.showMessageDialog(monPanel, Message);
+                String Message = "Developped by Walid.H | Allan.P | Baptiste.C | Maël.L\n Version: 1.0";
+                try {
+                    JOptionPane.showMessageDialog(monPanel, Message);
+                    Desktop.getDesktop().browse(URI.create("https://github.com/ImMael"));
+                    Desktop.getDesktop().browse(URI.create("https://github.com/Allan-Pe"));
+                    Desktop.getDesktop().browse(URI.create("https://github.com/BaptisteChoquet"));
+                    Desktop.getDesktop().browse(URI.create("https://github.com/walidhaddoury"));
+
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
 
             @Override
@@ -479,8 +561,6 @@ public class Frame extends JFrame {
             public void mouseExited(MouseEvent e) {
             }
         });
-
-
         // Sous menu pour ouvrir un fichier .txt
         ouvrir.addActionListener(new ActionListener() {
             @Override
@@ -507,19 +587,100 @@ public class Frame extends JFrame {
                 System.exit(0);
             }
         });
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = infoTable.getSelectedRow();
+                if (selectedRow == -1){
+                    JOptionPane.showMessageDialog(monPanel, "Erreur, Vous n'avez rien sélectionné.");
+                } else if (selectedRow == 0){
+                    infoTable.clearSelection();
+                } else {
+                    donnees[selectedRow][0] = "";
+                    donnees[selectedRow][1] = "";
+                    donnees[selectedRow][2] = "";
+                    donnees[selectedRow][3] = "";
+                    donnees[selectedRow][4] = "";
+                    donnees[selectedRow][5] = "";
 
+
+                }
+            }
+        });
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = infoTable.getSelectedRow();
+                if (selectedRow == -1){
+                    JOptionPane.showMessageDialog(monPanel, "Erreur, Vous n'avez rien sélectionné.");
+                } else if (selectedRow == 0){
+                    infoTable.clearSelection();
+                } else {
+                    title.setText((String) donnees[selectedRow][0]);
+                    author.setText((String) donnees[selectedRow][1]);
+                    release.setText((String) donnees[selectedRow][2]);
+                    column.setText((String) donnees[selectedRow][3]);
+                    row.setText((String) donnees[selectedRow][4]);
+                    pitch.setText((String) donnees[selectedRow][5]);
+                }
+            }
+        });
+        // Delete all files in the library
+        raz.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(int i = 1; i < donnees.length;i++){
+                    donnees[i][0]= "";
+                    donnees[i][1]= "";
+                    donnees[i][2]= "";
+                    donnees[i][3]= "";
+                    donnees[i][4]= "";
+                    donnees[i][5]= "";
+                }
+            }
+        });
+        // Display if a book were released after 2008
+        nouveau.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList recentBooks = new ArrayList<String>();
+                try{
+                    for(int k = 1; k < donnees.length;k++){
+                        int isRecent = Integer.parseInt((String) donnees[k][2]);
+                        // System.out.println(isRecent);
+                        if(isRecent > 2008){
+                            recentBooks.add("\n"+(String) donnees[k][0] + " de " + (String) donnees[k][1] + " ("+donnees[k][2]+") " + "\n");
+                        }
+                    }
+
+
+                } catch (NumberFormatException ignored){
+
+                }
+                ArrayList news = recentBooks;
+                JOptionPane.showMessageDialog(monPanel, "Les livres datant d'après 2008 sont : " + news);
+            }
+        });
+        // Display if a book's name have an "a" as second letter
+        stats.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList bookWA = new ArrayList<String>();
+                try{
+                    for(int k = 1; k < donnees.length - 1;k++){
+                        String containsA = (String) donnees[k][0];
+                        // System.out.println(containsA);
+                        char[] aWordArray = containsA.toCharArray();
+                        if(aWordArray[1] == 'a') {
+                            bookWA.add((String) donnees[k][0]);
+                        }
+                    }
+                } catch (ArrayIndexOutOfBoundsException ignored){
+
+                }
+                ArrayList booksA = bookWA ;
+                JOptionPane.showMessageDialog(monPanel, "Les livres possédant un a en deuxième position : " + booksA);
+            }
+        });
     }
-
-
-//    String[][] test = new String[10][10];
-//
-//    public void getBibliotheque(int x) {
-//        test[x][0] = dictionnaire[0];
-//        System.out.println(test[0][0]);
-//        System.out.println(test[1][0]);
-//    }
-//
-//    public String[] getForm() {
-//        return dictionnaire;
-//    }
 }
