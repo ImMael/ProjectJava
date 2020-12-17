@@ -12,22 +12,20 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.awt.Desktop;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.file.FileSystem;
-import java.util.HashMap;
 import javax.swing.ImageIcon;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileSystemView;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class Frame extends JFrame {
     String[] dictionnaire = new String[6];
-
     public Frame() {
         super("Bibliotheque");
         setSize(1280, 720);     // Set the default size of the window
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(dtf.format(now));
 
         JPanel monPanel = new JPanel();
         this.setContentPane(monPanel);
@@ -134,11 +132,19 @@ public class Frame extends JFrame {
         buttonCancel.setBorder(roundedBorder);
         buttonCancel.setBackground(Color.darkGray);
 
+        Object[][] donnees = {
+                {"Titre", "Auteur", "Date de Sortie", "Colonne","Rangée", "Résumé"},
+                {"Harry Potter", "J.K Rowling", "2009", "5","2", "...."},
+                {"Eragon", "C Poolini", "2000", "2","2", "...."}
+        };
+
+        String[] entetes = {"Titre", "Auteur", "Date de Sortie", "Colonne", "Rangee", "Pitch"};
+
         // Table where the info of books are display and save
-        JTable infoTable = new JTable();    //create JTable
+        JTable infoTable = new JTable(donnees, entetes);    //create JTable
         infoTable.setPreferredSize(new Dimension(800, 400));    // Size of JTable
         infoTable.setBorder(roundedBorder);    // To have rounded border (style)
-        infoTable.setOpaque(false);     // To set opacity of JTable
+        infoTable.setBackground(Color.darkGray);     // To set opacity of JTable
         infoTable.setForeground(Color.WHITE);       // Color of text
 
         // Create blank column to create space
@@ -234,11 +240,6 @@ public class Frame extends JFrame {
         title.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (title.getText().equals("Titre")) {
-                    title.setText(" ");
-                } else if (title.getText().equals("")) {
-                    title.setText("Titre");
-                }
             }
 
             @Override
@@ -253,20 +254,21 @@ public class Frame extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
+                if(title.getText().equals("Titre")){
+                    title.setText("");
+                }
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
+                if(title.getText().equals("")){
+                    title.setText("Titre");
+                }
             }
         });
         author.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (author.getText().equals("Auteur")) {
-                    author.setText(" ");
-                } else if (title.getText().equals("")) {
-                    author.setText("Auteur");
-                }
             }
 
             @Override
@@ -276,25 +278,25 @@ public class Frame extends JFrame {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
+                if(author.getText().equals("Auteur")){
+                    author.setText("");
+                }
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
+                if(author.getText().equals("")){
+                    author.setText("Auteur");
+                }
             }
         });
         release.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (release.getText().equals("Date de sortie")) {
-                    release.setText(" ");
-                } else if (title.getText().equals("")) {
-                    release.setText("Date de sortie");
-                }
             }
 
             @Override
@@ -309,20 +311,21 @@ public class Frame extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
+                if(release.getText().equals("Date de sortie")){
+                    release.setText("");
+                }
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
+                if(release.getText().equals("")){
+                    release.setText("Date de sortie");
+                }
             }
         });
         column.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (column.getText().equals("Colonne")) {
-                    column.setText(" ");
-                } else if (column.getText().equals("")) {
-                    column.setText("Colonne");
-                }
             }
 
             @Override
@@ -337,20 +340,21 @@ public class Frame extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
+                if(column.getText().equals("Colonne")){
+                    column.setText("");
+                }
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
+                if(column.getText().equals("")){
+                    column.setText("Colonne");
+                }
             }
         });
         row.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (row.getText().equals("Rangée")) {
-                    row.setText(" ");
-                } else if (row.getText().equals("")) {
-                    row.setText("Rangée");
-                }
             }
 
             @Override
@@ -365,20 +369,21 @@ public class Frame extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
+                if(row.getText().equals("Rangée")){
+                    row.setText("");
+                }
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
+                if(row.getText().equals("")){
+                    row.setText("Rangée");
+                }
             }
         });
         pitch.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (pitch.getText().equals("Résumé")) {
-                    pitch.setText(" ");
-                } else if (pitch.getText().equals("")) {
-                    pitch.setText("Resumé");
-                }
             }
 
             @Override
@@ -393,10 +398,16 @@ public class Frame extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
+                if(pitch.getText().equals("Résumé")){
+                    pitch.setText("");
+                }
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
+                if(pitch.getText().equals("")){
+                    pitch.setText("Résumé");
+                }
             }
         });
 
@@ -417,22 +428,11 @@ public class Frame extends JFrame {
         buttonValidate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                int x = 0;
-
-                dictionnaire[0] = title.getText();
-                dictionnaire[1] = author.getText();
-                dictionnaire[2] = release.getText();
-                dictionnaire[3] = column.getText();
-                dictionnaire[4] = row.getText();
-                dictionnaire[5] = pitch.getText();
-
-                getForm();
-                getBibliotheque(x);
-                x++;
+                if(Integer.parseInt(release.getText()) == Integer.parseInt(String.valueOf(now))){
+                    System.out.println("Date trop récente");
+                }
             }
         });
-
 
         // Pop up dev
         filePropos.addMouseListener(new MouseListener() {
@@ -490,19 +490,18 @@ public class Frame extends JFrame {
             }
         });
 
-
     }
 
-    String[][] test = new String[10][10];
 
-    public void getBibliotheque(int x) {
-        test[x][0] = dictionnaire[0];
-        System.out.println(test[0][0]);
-        System.out.println(test[1][0]);
-    }
-
-    public String[] getForm() {
-        return dictionnaire;
-    }
-
+//    String[][] test = new String[10][10];
+//
+//    public void getBibliotheque(int x) {
+//        test[x][0] = dictionnaire[0];
+//        System.out.println(test[0][0]);
+//        System.out.println(test[1][0]);
+//    }
+//
+//    public String[] getForm() {
+//        return dictionnaire;
+//    }
 }
