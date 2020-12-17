@@ -1,5 +1,7 @@
 package jav.project;
 
+import jav.project.Frame;
+
 public class Book {
     String title;
     String author;

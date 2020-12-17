@@ -15,13 +15,14 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.FileSystem;
+import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
-public class Frame extends JFrame{
+public class Frame extends JFrame {
     public Frame() {
         super("Bibliotheque");
         setSize(1280, 720);     // Set the default size of the window
@@ -223,7 +224,7 @@ public class Frame extends JFrame{
         // Mise en place de la recherche de fichier .txt
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setAcceptAllFileFilterUsed(false);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Only txt files","txt");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Only txt files", "txt");
         fileChooser.setFileFilter(filter);
 
 
@@ -231,9 +232,9 @@ public class Frame extends JFrame{
         title.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(title.getText().equals("Titre")){
+                if (title.getText().equals("Titre")) {
                     title.setText(" ");
-                } else if(title.getText().equals("")){
+                } else if (title.getText().equals("")) {
                     title.setText("Titre");
                 }
             }
@@ -259,9 +260,9 @@ public class Frame extends JFrame{
         author.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(author.getText().equals("Auteur")){
+                if (author.getText().equals("Auteur")) {
                     author.setText(" ");
-                } else if(title.getText().equals("")){
+                } else if (title.getText().equals("")) {
                     author.setText("Auteur");
                 }
             }
@@ -287,9 +288,9 @@ public class Frame extends JFrame{
         release.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(release.getText().equals("Date de sortie")){
+                if (release.getText().equals("Date de sortie")) {
                     release.setText(" ");
-                } else if(title.getText().equals("")){
+                } else if (title.getText().equals("")) {
                     release.setText("Date de sortie");
                 }
             }
@@ -315,9 +316,9 @@ public class Frame extends JFrame{
         column.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(column.getText().equals("Colonne")){
+                if (column.getText().equals("Colonne")) {
                     column.setText(" ");
-                } else if(column.getText().equals("")){
+                } else if (column.getText().equals("")) {
                     column.setText("Colonne");
                 }
             }
@@ -343,9 +344,9 @@ public class Frame extends JFrame{
         row.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(row.getText().equals("Rangée")){
+                if (row.getText().equals("Rangée")) {
                     row.setText(" ");
-                } else if(row.getText().equals("")){
+                } else if (row.getText().equals("")) {
                     row.setText("Rangée");
                 }
             }
@@ -371,9 +372,9 @@ public class Frame extends JFrame{
         pitch.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(pitch.getText().equals("Résumé")){
+                if (pitch.getText().equals("Résumé")) {
                     pitch.setText(" ");
-                } else if(pitch.getText().equals("")){
+                } else if (pitch.getText().equals("")) {
                     pitch.setText("Resumé");
                 }
             }
@@ -407,18 +408,19 @@ public class Frame extends JFrame{
                 pitch.setText("Résumé");
             }
         });
-        buttonValidate.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String getTitle = title.getText();
-                String getAuthor = author.getText();
-                String getRelease = release.getText();
-                String getColumn = column.getText();
-                String getRow = row.getText();
-                String getPitch = pitch.getText();
-                System.out.println(getTitle + getAuthor + getRelease + getColumn + getRow + getPitch);
-            }
-        });
+
+        public String[] getForm(){
+
+            String[] dictionnaire = new String[6];
+
+            dictionnaire[0] = title.getText();
+            dictionnaire[1] = author.getText();
+            dictionnaire[2] = release.getText();
+            dictionnaire[3] = column.getText();
+            dictionnaire[4] = row.getText();
+            dictionnaire[5] = pitch.getText();
+            System.out.println(dictionnaire[1]);
+        }
 
         // Pop up dev
         filePropos.addMouseListener(new MouseListener() {
@@ -454,15 +456,15 @@ public class Frame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 int Val = fileChooser.showOpenDialog(monPanel);
-                if(Val == JFileChooser.APPROVE_OPTION){
+                if (Val == JFileChooser.APPROVE_OPTION) {
                     // System.out.println("You choose to open this: "+fileChooser.getSelectedFile());
                     File file = new File(String.valueOf(fileChooser.getSelectedFile()));
                     Desktop desktop = Desktop.getDesktop();
-                    if(file.exists()){
+                    if (file.exists()) {
                         try {
                             desktop.open(file);
                         } catch (IOException exceptError) {
-                            JOptionPane.showMessageDialog(monPanel,"Erreur, le fichier est incorrect.");
+                            JOptionPane.showMessageDialog(monPanel, "Erreur, le fichier est incorrect.");
                         }
                     }
 
