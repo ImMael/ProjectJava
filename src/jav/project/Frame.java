@@ -200,7 +200,7 @@ public class Frame extends JFrame {
 
 
         //create JTable
-        infoTable.setPreferredSize(new Dimension(800, 500));    // Size of JTable
+        infoTable.setPreferredSize(new Dimension(800, 400));    // Size of JTable
         infoTable.setBorder(roundedBorder);    // To have rounded border (style)
         infoTable.setOpaque(false);     // To set opacity of JTable
         infoTable.setForeground(Color.WHITE);       // Color of text
@@ -289,7 +289,7 @@ public class Frame extends JFrame {
 
         // Button add of the Table
         grid.gridx = 0;
-        grid.gridy = 7;
+        grid.gridy = 9;
         grid.gridheight = 1;
         grid.gridwidth = 1;
         grid.insets = new Insets(-70, -30, 0, 0);
@@ -297,7 +297,7 @@ public class Frame extends JFrame {
 
         // Button delete of the table
         grid.gridx = 0;
-        grid.gridy = 7;
+        grid.gridy = 9;
         grid.gridheight = 1;
         grid.gridwidth = 1;
         grid.insets = new Insets(-70, 30, 0, 0);
