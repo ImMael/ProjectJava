@@ -154,11 +154,11 @@ public class Frame extends JFrame {
         // Setup of the Library
         Object[][] donnees = {
                 {"Titre", "Auteur", "Date de Sortie", "Colonne", "Rangée", "Résumé"},
-                {"Harry Potter", "J.K Rowling", "2009", "5", "2", "...."},
-                {"Eragon", "C Poolini", "2000", "2", "2", "...."},
-                {"Le Vieil Homme et la Mer", "E Hemingway", "1952", "4", "3", "Un bouquin avec un gros poisson"},
-                {"Les Raisins de la Colère", "J Steinbeck", "1939", "2", "5", "La grande dépression c'était la Hess"},
-                {"Moby Dick", "H. Melville", "1851", "1", "6", "Un autre bouquin avec un gros poissson"},
+                {"Harry Potter", "J.K Rowling", "2009", "5", "2", "C'est l'histoire d'Harry Potter..."},
+                {"Eragon", "C Poolini", "2000", "2", "2", "Eragon mène une vie simple.."},
+                {"Le Vieil Homme et la Mer", "E Hemingway", "1952", "4", "3", "Un bouquin avec un gros poisson.."},
+                {"Les Raisins de la Colère", "J Steinbeck", "1939", "2", "5", "La grande dépression c'était la Hess.."},
+                {"Moby Dick", "H. Melville", "1851", "1", "6", "Un autre bouquin avec un gros poissson.."},
                 {"", "", "", "", "", ""},
                 {"", "", "", "", "", ""},
                 {"", "", "", "", "", ""},
@@ -182,8 +182,8 @@ public class Frame extends JFrame {
         };
         // System.out.println(donnees[x][0]);
 
-        Book hp = new Book("Harry Potter", "J.K Rowling", 2009,5,2,".....");
-        Book eragon = new Book("Eragon", "C Poolini",2000,2,2,".....");
+        Book hp = new Book("Harry Potter", "J.K Rowling", 2009,5,2,"C'est l'histoire d'Harry Potter...");
+        Book eragon = new Book("Eragon", "C Poolini",2000,2,2,"Eragon mène une vie simple..");
 
         String[] entetes = {"Titre", "Auteur", "Date de Sortie", "Colonne", "Rangee", "Pitch"};
 
@@ -276,7 +276,7 @@ public class Frame extends JFrame {
         // Info Table
         grid.gridx = 0;
         grid.gridy = 0;
-        grid.gridheight = 8;
+        grid.gridheight = 6;
         grid.gridwidth = 1;
         monPanel.add(infoTable, grid);
 
@@ -563,6 +563,7 @@ public class Frame extends JFrame {
             public void mouseExited(MouseEvent e) {
             }
         });
+
         // Sous menu pour ouvrir un fichier .txt
         ouvrir.addActionListener(new ActionListener() {
             @Override
@@ -627,6 +628,7 @@ public class Frame extends JFrame {
                 }
             }
         });
+
         // Delete all files in the library
         raz.addActionListener(new ActionListener() {
             @Override
@@ -641,6 +643,7 @@ public class Frame extends JFrame {
                 }
             }
         });
+
         // Display if a book were released after 2008
         nouveau.addActionListener(new ActionListener() {
             @Override
@@ -654,8 +657,6 @@ public class Frame extends JFrame {
                             recentBooks.add("\n"+(String) donnees[k][0] + " de " + (String) donnees[k][1] + " ("+donnees[k][2]+") " + "\n");
                         }
                     }
-
-
                 } catch (NumberFormatException ignored){
 
                 }
@@ -663,6 +664,7 @@ public class Frame extends JFrame {
                 JOptionPane.showMessageDialog(monPanel, "Les livres datant d'après 2008 sont : " + news);
             }
         });
+
         // Display if a book's name have an "a" as second letter
         stats.addActionListener(new ActionListener() {
             @Override

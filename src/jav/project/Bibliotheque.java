@@ -7,4 +7,11 @@ public class Bibliotheque {
     public Bibliotheque(Book[] biblio) {
         this.biblio = biblio;
     }
+
+    public void bookToAdd(Book addBook){
+
+    }
+    public void bookToRemove(Book removeBook){
+
+    }
 }
